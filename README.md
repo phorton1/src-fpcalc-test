@@ -61,398 +61,46 @@ This set of results most closely mimics the results you would be likely to get i
 This set of results is basically what I got when I first tried to build an android version of fpCalc, and which led me to this huge analytical project.
 
 
-<table style='border:1px solid black; border-collapse:collapse; padding:4px; spacing:2px'>
-<tr>
-<td><b>ffmpeg_version</b></td>
-<td><b>2.7</b></td>
-<td><b>2.7</b></td>
-<td><b>2.7</b></td>
-<td><b>2.7</b></td>
-<td><b>2.7</b></td>
-<td><b>2.7</b></td>
-<td><b>2.7</b></td>
-</tr>
-<tr>
-<td><b>build_platform</b></td>
-<td><b>linux</b></td>
-<td><b>win</b></td>
-<td><b>host</b></td>
-<td><b>linux</b></td>
-<td><b>win</b></td>
-<td><b>linux</b></td>
-<td><b>linux</b></td>
-</tr>
-<tr>
-<td><b>exec_platform</b></td>
-<td><b>win</b></td>
-<td><b>win</b></td>
-<td><b>x86</b></td>
-<td><b>x86</b></td>
-<td><b>x86</b></td>
-<td><b>x86s</b></td>
-<td><b>arm7s</b></td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-</tr>
-<tr>
-<td><b>a1. total_possible</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>a3. total compares</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>b0. same duration</b></td>
-<td>7476</td>
-<td>7476</td>
-<td>7476</td>
-<td>7476</td>
-<td>7476</td>
-<td>7476</td>
-<td>7476</td>
-</tr>
-<tr>
-<td><b>b0. same fingerprint_md5</b></td>
-<td>6312</td>
-<td>6308</td>
-<td>6306</td>
-<td>6313</td>
-<td>6313</td>
-<td>6313</td>
-<td>6026</td>
-</tr>
-<tr>
-<td><b>b0. same stream_md5</b></td>
-<td>8117</td>
-<td>8117</td>
-<td>8117</td>
-<td>8117</td>
-<td>8117</td>
-<td>8117</td>
-<td>8117</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>c1. diff duration</b></td>
-<td>1101</td>
-<td>1101</td>
-<td>1101</td>
-<td>1101</td>
-<td>1101</td>
-<td>1101</td>
-<td>1101</td>
-</tr>
-<tr>
-<td><b>c1. diff fingerprint_md5</b></td>
-<td>2265</td>
-<td>2269</td>
-<td>2271</td>
-<td>2264</td>
-<td>2264</td>
-<td>2264</td>
-<td>2551</td>
-</tr>
-<tr>
-<td><b>c1. diff stream_md5</b></td>
-<td>460</td>
-<td>460</td>
-<td>460</td>
-<td>460</td>
-<td>460</td>
-<td>460</td>
-<td>460</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>f0. actual fingerprint comparisons</b></td>
-<td>2265</td>
-<td>2269</td>
-<td>2271</td>
-<td>2264</td>
-<td>2264</td>
-<td>2264</td>
-<td>2551</td>
-</tr>
-<tr>
-<td><b>f1. exact match score</b></td>
-<td>648</td>
-<td>650</td>
-<td>650</td>
-<td>648</td>
-<td>648</td>
-<td>648</td>
-<td>743</td>
-</tr>
-<tr>
-<td><b>f2. score within threshold(0.001)</b></td>
-<td>1159</td>
-<td>1161</td>
-<td>1163</td>
-<td>1158</td>
-<td>1158</td>
-<td>1158</td>
-<td>1347</td>
-</tr>
-<tr>
-<td><b>f3. score within threshold(0.01)</b></td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>7</td>
-</tr>
-<tr>
-<td><b>f4. score over threshold(0.01)</b></td>
-<td>454</td>
-<td>454</td>
-<td>454</td>
-<td>454</td>
-<td>454</td>
-<td>454</td>
-<td>454</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.02</b></td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.03</b></td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.04</b></td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.05</b></td>
-<td>11</td>
-<td>11</td>
-<td>11</td>
-<td>11</td>
-<td>11</td>
-<td>11</td>
-<td>11</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.06</b></td>
-<td>38</td>
-<td>38</td>
-<td>38</td>
-<td>38</td>
-<td>38</td>
-<td>38</td>
-<td>38</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.07</b></td>
-<td>97</td>
-<td>97</td>
-<td>97</td>
-<td>97</td>
-<td>97</td>
-<td>97</td>
-<td>97</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.08</b></td>
-<td>35</td>
-<td>35</td>
-<td>35</td>
-<td>35</td>
-<td>35</td>
-<td>35</td>
-<td>35</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.09</b></td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.10</b></td>
-<td>8</td>
-<td>8</td>
-<td>8</td>
-<td>8</td>
-<td>8</td>
-<td>8</td>
-<td>8</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.11</b></td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.12</b></td>
-<td>54</td>
-<td>54</td>
-<td>54</td>
-<td>54</td>
-<td>54</td>
-<td>54</td>
-<td>54</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.13</b></td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.14</b></td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-<td>68</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.15</b></td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-<td>25</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.16</b></td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-<td>10</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.17</b></td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>BAD_PERCENT</b></td>
-<td>5.29%</td>
-<td>5.29%</td>
-<td>5.29%</td>
-<td>5.29%</td>
-<td>5.29%</td>
-<td>5.29%</td>
-<td>5.29%</td>
-</tr>
-</table>
+**ffmpeg_version**|**2.7**|**2.7**|**2.7**|**2.7**|**2.7**|**2.7**|**2.7**|
+:---|---:|---:|---:|---:|---:|---:|---:|
+**build_platform**|**linux**|**win**|**host**|**linux**|**win**|**linux**|**linux**|
+**exec_platform**|**win**|**win**|**x86**|**x86**|**x86**|**x86s**|**arm7s**|
+||||||||
+**a1. total_possible**|8577|8577|8577|8577|8577|8577|8577|
+**a3. total compares**|8577|8577|8577|8577|8577|8577|8577|
+||||||||
+**b0. same duration**|7476|7476|7476|7476|7476|7476|7476|
+**b0. same fingerprint_md5**|6312|6308|6306|6313|6313|6313|6026|
+**b0. same stream_md5**|8117|8117|8117|8117|8117|8117|8117|
+||||||||
+**c1. diff duration**|1101|1101|1101|1101|1101|1101|1101|
+**c1. diff fingerprint_md5**|2265|2269|2271|2264|2264|2264|2551|
+**c1. diff stream_md5**|460|460|460|460|460|460|460|
+||||||||
+**f0. actual fingerprint comparisons**|2265|2269|2271|2264|2264|2264|2551|
+**f1. exact match score**|648|650|650|648|648|648|743|
+**f2. score within threshold(0.001)**|1159|1161|1163|1158|1158|1158|1347|
+**f3. score within threshold(0.01)**|4|4|4|4|4|4|7|
+**f4. score over threshold(0.01)**|454|454|454|454|454|454|454|
+||||||||
+**g0. bad_score 0.02**|1|1|1|1|1|1|1|
+**g0. bad_score 0.03**|1|1|1|1|1|1|1|
+**g0. bad_score 0.04**|1|1|1|1|1|1|1|
+**g0. bad_score 0.05**|11|11|11|11|11|11|11|
+**g0. bad_score 0.06**|38|38|38|38|38|38|38|
+**g0. bad_score 0.07**|97|97|97|97|97|97|97|
+**g0. bad_score 0.08**|35|35|35|35|35|35|35|
+**g0. bad_score 0.09**|1|1|1|1|1|1|1|
+**g0. bad_score 0.10**|8|8|8|8|8|8|8|
+**g0. bad_score 0.11**|33|33|33|33|33|33|33|
+**g0. bad_score 0.12**|54|54|54|54|54|54|54|
+**g0. bad_score 0.13**|68|68|68|68|68|68|68|
+**g0. bad_score 0.14**|68|68|68|68|68|68|68|
+**g0. bad_score 0.15**|25|25|25|25|25|25|25|
+**g0. bad_score 0.16**|10|10|10|10|10|10|10|
+**g0. bad_score 0.17**|3|3|3|3|3|3|3|
+||||||||
+**BAD_PERCENT**|5.29%|5.29%|5.29%|5.29%|5.29%|5.29%|5.29%|
 
 
 Basically this table shows the comparison of various builds I have done of fpCalc against the **n2.7** "official release" of ffmpeg versus the **orig_win** build.  One can read it from left to right, top to bottom, and note the following:
@@ -478,327 +126,36 @@ Running the same tests, but varying only the **ffmpeg version** to *official rel
 What is interesting is that the number of **stream differences** has *decreased*, and *correspondingly*, the ultimate number and percentage of **"bad" fingerprints** has likewise decreased to  **33 == 0.38%**:
 
 
-<table style='border:1px solid black; border-collapse:collapse; padding:4px; spacing:2px'>
-<tr>
-<td><b>ffmpeg_version</b></td>
-<td><b>0.11</b></td>
-<td><b>0.11</b></td>
-<td><b>0.11</b></td>
-<td><b>0.11</b></td>
-<td><b>0.11</b></td>
-<td><b>0.11</b></td>
-<td><b>0.11</b></td>
-<td><b>0.11</b></td>
-</tr>
-<tr>
-<td><b>build_platform</b></td>
-<td><b>linux</b></td>
-<td><b>win</b></td>
-<td><b>host</b></td>
-<td><b>linux</b></td>
-<td><b>win</b></td>
-<td><b>linux</b></td>
-<td><b>win</b></td>
-<td><b>linux</b></td>
-</tr>
-<tr>
-<td><b>exec_platform</b></td>
-<td><b>win</b></td>
-<td><b>win</b></td>
-<td><b>x86</b></td>
-<td><b>x86</b></td>
-<td><b>x86</b></td>
-<td><b>x86s</b></td>
-<td><b>x86s</b></td>
-<td><b>arm7s</b></td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-</tr>
-<tr>
-<td><b>a1. total_possible</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>a3. total compares</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>b0. same duration</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>b0. same fingerprint_md5</b></td>
-<td>8533</td>
-<td>8530</td>
-<td>6905</td>
-<td>7006</td>
-<td>7006</td>
-<td>7006</td>
-<td>7006</td>
-<td>7006</td>
-</tr>
-<tr>
-<td><b>b0. same stream_md5</b></td>
-<td>8540</td>
-<td>8540</td>
-<td>8540</td>
-<td>8540</td>
-<td>8540</td>
-<td>8540</td>
-<td>8540</td>
-<td>8540</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>c1. diff fingerprint_md5</b></td>
-<td>44</td>
-<td>47</td>
-<td>1672</td>
-<td>1571</td>
-<td>1571</td>
-<td>1571</td>
-<td>1571</td>
-<td>1571</td>
-</tr>
-<tr>
-<td><b>c1. diff stream_md5</b></td>
-<td>37</td>
-<td>37</td>
-<td>37</td>
-<td>37</td>
-<td>37</td>
-<td>37</td>
-<td>37</td>
-<td>37</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>f0. actual fingerprint comparisons</b></td>
-<td>44</td>
-<td>47</td>
-<td>1672</td>
-<td>1571</td>
-<td>1571</td>
-<td>1571</td>
-<td>1571</td>
-<td>1571</td>
-</tr>
-<tr>
-<td><b>f1. exact match score</b></td>
-<td>1</td>
-<td>1</td>
-<td>581</td>
-<td>550</td>
-<td>550</td>
-<td>550</td>
-<td>550</td>
-<td>550</td>
-</tr>
-<tr>
-<td><b>f2. score within threshold(0.001)</b></td>
-<td>8</td>
-<td>11</td>
-<td>1055</td>
-<td>984</td>
-<td>984</td>
-<td>984</td>
-<td>984</td>
-<td>984</td>
-</tr>
-<tr>
-<td><b>f3. score within threshold(0.01)</b></td>
-<td>2</td>
-<td>2</td>
-<td>3</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-</tr>
-<tr>
-<td><b>f4. score over threshold(0.01)</b></td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-<td>33</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.05</b></td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.06</b></td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-<td>4</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.07</b></td>
-<td>14</td>
-<td>14</td>
-<td>14</td>
-<td>14</td>
-<td>14</td>
-<td>14</td>
-<td>14</td>
-<td>14</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.08</b></td>
-<td>6</td>
-<td>6</td>
-<td>6</td>
-<td>6</td>
-<td>6</td>
-<td>6</td>
-<td>6</td>
-<td>6</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.15</b></td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.16</b></td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.17</b></td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-<td>3</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>BAD_PERCENT</b></td>
-<td>0.38%</td>
-<td>0.38%</td>
-<td>0.38%</td>
-<td>0.38%</td>
-<td>0.38%</td>
-<td>0.38%</td>
-<td>0.38%</td>
-<td>0.38%</td>
-</tr>
-</table>
+**ffmpeg_version**|**0.11**|**0.11**|**0.11**|**0.11**|**0.11**|**0.11**|**0.11**|**0.11**|
+:---|---:|---:|---:|---:|---:|---:|---:|---:|
+**build_platform**|**linux**|**win**|**host**|**linux**|**win**|**linux**|**win**|**linux**|
+**exec_platform**|**win**|**win**|**x86**|**x86**|**x86**|**x86s**|**x86s**|**arm7s**|
+|||||||||
+**a1. total_possible**|8577|8577|8577|8577|8577|8577|8577|8577|
+**a3. total compares**|8577|8577|8577|8577|8577|8577|8577|8577|
+|||||||||
+**b0. same duration**|8577|8577|8577|8577|8577|8577|8577|8577|
+**b0. same fingerprint_md5**|8533|8530|6905|7006|7006|7006|7006|7006|
+**b0. same stream_md5**|8540|8540|8540|8540|8540|8540|8540|8540|
+|||||||||
+**c1. diff fingerprint_md5**|44|47|1672|1571|1571|1571|1571|1571|
+**c1. diff stream_md5**|37|37|37|37|37|37|37|37|
+|||||||||
+**f0. actual fingerprint comparisons**|44|47|1672|1571|1571|1571|1571|1571|
+**f1. exact match score**|1|1|581|550|550|550|550|550|
+**f2. score within threshold(0.001)**|8|11|1055|984|984|984|984|984|
+**f3. score within threshold(0.01)**|2|2|3|4|4|4|4|4|
+**f4. score over threshold(0.01)**|33|33|33|33|33|33|33|33|
+|||||||||
+**g0. bad_score 0.05**|2|2|2|2|2|2|2|2|
+**g0. bad_score 0.06**|4|4|4|4|4|4|4|4|
+**g0. bad_score 0.07**|14|14|14|14|14|14|14|14|
+**g0. bad_score 0.08**|6|6|6|6|6|6|6|6|
+**g0. bad_score 0.15**|1|1|1|1|1|1|1|1|
+**g0. bad_score 0.16**|3|3|3|3|3|3|3|3|
+**g0. bad_score 0.17**|3|3|3|3|3|3|3|3|
+|||||||||
+**BAD_PERCENT**|0.38%|0.38%|0.38%|0.38%|0.38%|0.38%|0.38%|0.38%|
 
 
 There are still **platform differences**, but in general, the 0.11 build produces **much better results** than the ffmpeg n2.7 builds.
@@ -815,195 +172,24 @@ First of all, of perhaps highest importance, is that this build has **no signifi
 And very interestingly, the linux-win build returns the **exact same fingerprints** as the orig_win version ....
 
 
-<table style='border:1px solid black; border-collapse:collapse; padding:4px; spacing:2px'>
-<tr>
-<td><b>ffmpeg_version</b></td>
-<td><b>0.9</b></td>
-<td><b>0.9</b></td>
-<td><b>0.9</b></td>
-<td><b>0.9</b></td>
-<td><b>0.9</b></td>
-<td><b>0.9</b></td>
-<td><b>0.9</b></td>
-<td><b>0.9</b></td>
-</tr>
-<tr>
-<td><b>build_platform</b></td>
-<td><b>linux</b></td>
-<td><b>win</b></td>
-<td><b>host</b></td>
-<td><b>linux</b></td>
-<td><b>win</b></td>
-<td><b>linux</b></td>
-<td><b>win</b></td>
-<td><b>linux</b></td>
-</tr>
-<tr>
-<td><b>exec_platform</b></td>
-<td><b>win</b></td>
-<td><b>win</b></td>
-<td><b>x86</b></td>
-<td><b>x86</b></td>
-<td><b>x86</b></td>
-<td><b>x86s</b></td>
-<td><b>x86s</b></td>
-<td><b>arm7s</b></td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-</tr>
-<tr>
-<td><b>a1. total_possible</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>a3. total compares</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>b0. same duration</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>b0. same fingerprint_md5</b></td>
-<td>8577</td>
-<td>8574</td>
-<td>6941</td>
-<td>7044</td>
-<td>7044</td>
-<td>7044</td>
-<td>7044</td>
-<td>7044</td>
-</tr>
-<tr>
-<td><b>b0. same stream_md5</b></td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>c1. diff fingerprint_md5</b></td>
-<td>&nbsp;</td>
-<td>3</td>
-<td>1636</td>
-<td>1533</td>
-<td>1533</td>
-<td>1533</td>
-<td>1533</td>
-<td>1533</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>f0. actual fingerprint comparisons</b></td>
-<td>&nbsp;</td>
-<td>3</td>
-<td>1636</td>
-<td>1533</td>
-<td>1533</td>
-<td>1533</td>
-<td>1533</td>
-<td>1533</td>
-</tr>
-<tr>
-<td><b>f1. exact match score</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>582</td>
-<td>550</td>
-<td>550</td>
-<td>550</td>
-<td>550</td>
-<td>550</td>
-</tr>
-<tr>
-<td><b>f2. score within threshold(0.001)</b></td>
-<td>&nbsp;</td>
-<td>3</td>
-<td>1053</td>
-<td>981</td>
-<td>981</td>
-<td>981</td>
-<td>981</td>
-<td>981</td>
-</tr>
-<tr>
-<td><b>f3. score within threshold(0.01)</b></td>
-<td>&nbsp;</td>
-<td>&nbsp;</td>
-<td>1</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-<td>2</td>
-</tr>
-</table>
+**ffmpeg_version**|**0.9**|**0.9**|**0.9**|**0.9**|**0.9**|**0.9**|**0.9**|**0.9**|
+:---|---:|---:|---:|---:|---:|---:|---:|---:|
+**build_platform**|**linux**|**win**|**host**|**linux**|**win**|**linux**|**win**|**linux**|
+**exec_platform**|**win**|**win**|**x86**|**x86**|**x86**|**x86s**|**x86s**|**arm7s**|
+|||||||||
+**a1. total_possible**|8577|8577|8577|8577|8577|8577|8577|8577|
+**a3. total compares**|8577|8577|8577|8577|8577|8577|8577|8577|
+|||||||||
+**b0. same duration**|8577|8577|8577|8577|8577|8577|8577|8577|
+**b0. same fingerprint_md5**|8577|8574|6941|7044|7044|7044|7044|7044|
+**b0. same stream_md5**|8577|8577|8577|8577|8577|8577|8577|8577|
+|||||||||
+**c1. diff fingerprint_md5**||3|1636|1533|1533|1533|1533|1533|
+|||||||||
+**f0. actual fingerprint comparisons**||3|1636|1533|1533|1533|1533|1533|
+**f1. exact match score**|||582|550|550|550|550|550|
+**f2. score within threshold(0.001)**||3|1053|981|981|981|981|981|
+**f3. score within threshold(0.01)**|||1|2|2|2|2|2|
 
 
 ## D. x86 Ubuntu 12.04 distro fpCalc
@@ -1019,92 +205,29 @@ There are several interesting observations about this running this *wild* versio
 - the one file that was bad was **signficantly bad* with a score of **0.13**
 
 
-<table style='border:1px solid black; border-collapse:collapse; padding:4px; spacing:2px'>
-<tr>
-<td><b>build_platform</b></td>
-<td><b>orig</b></td>
-</tr>
-<tr>
-<td><b>exec_platform</b></td>
-<td><b>x86</b></td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td><b>&nbsp;</b></td>
-</tr>
-<tr>
-<td><b>a1. total_possible</b></td>
-<td>8577</td>
-</tr>
-<tr>
-<td><b>a2. missing results</b></td>
-<td>4</td>
-</tr>
-<tr>
-<td><b>a3. total compares</b></td>
-<td>8573</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>b0. same duration</b></td>
-<td>8573</td>
-</tr>
-<tr>
-<td><b>b0. same fingerprint_md5</b></td>
-<td>6929</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>c1. diff fingerprint_md5</b></td>
-<td>1644</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>f0. actual fingerprint comparisons</b></td>
-<td>1644</td>
-</tr>
-<tr>
-<td><b>f1. exact match score</b></td>
-<td>583</td>
-</tr>
-<tr>
-<td><b>f2. score within threshold(0.001)</b></td>
-<td>1058</td>
-</tr>
-<tr>
-<td><b>f3. score within threshold(0.01)</b></td>
-<td>2</td>
-</tr>
-<tr>
-<td><b>f4. score over threshold(0.01)</b></td>
-<td>1</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>g0. bad_score 0.13</b></td>
-<td>1</td>
-</tr>
-<tr>
-<td><b>&nbsp;</b></td>
-<td>&nbsp;</td>
-</tr>
-<tr>
-<td><b>BAD_PERCENT</b></td>
-<td>0.01%</td>
-</tr>
-</table>
+**ffmpeg_version**|*unknown**|
+:---|---:|
+**build_platform**|**orig**|
+**exec_platform**|**x86**|
+||
+**a1. total_possible**|8577|
+**a2. missing results**|4|
+**a3. total compares**|8573|
+||
+**b0. same duration**|8573|
+**b0. same fingerprint_md5**|6929|
+||
+**c1. diff fingerprint_md5**|1644|
+||
+**f0. actual fingerprint comparisons**|1644|
+**f1. exact match score**|583|
+**f2. score within threshold(0.001)**|1058|
+**f3. score within threshold(0.01)**|2|
+**f4. score over threshold(0.01)**|1|
+||
+**g0. bad_score 0.13**|1|
+||
+**BAD_PERCENT**|0.01%|
 
 
 It is interesting that my **linux_win.0.9** version produced *better results* than this release distro.

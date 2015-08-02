@@ -1,0 +1,334 @@
+#!/bin/bash
+#----------------------------------------------------
+# install
+#
+# A shell script to install built versions of fpcalc
+# to various other directories and android devices.
+#
+#---------------------------------------------------
+#
+# This file is (c) Copyright 2015 - Patrick Horton.
+#
+# It is released under the GNU Public License Version 2,
+# and you are free to modify it as you wish, as long as
+# this header, and the copyright it contains are included
+# intact in your modified version of the this file.
+#
+# Please see COPYING.GPLv2 for more information.
+
+set -e
+set +x
+
+DEBUG_LEVEL=0
+
+# Your configuration
+
+REMOUNT_NEEDED=1
+
+DEVICE_x86=192.168.56.101
+DEVICE_arm=192.168.100.103
+DEST_EXE_DIR=//data/local/tmp
+DEST_LIB_DIR=//data/local/tmp
+
+ANDROID_PROJECT="/src/AndroidStudio/test_fpCalc/app/src/main"
+
+START_DIR=$(PWD)
+CACHE_DIR="$START_DIR/../_cache"
+SOURCE_DIR="$START_DIR/../_install"
+
+
+# Program variables
+# jni must be explicitly specified
+
+CLEAN=0
+ALL_WHATS="exe lib"
+ALL_VERSIONS="0.9 0.11 2.7"
+ALL_BUILDS="_linux _win"
+ALL_PLATFORMS="x86 arm arm7"
+
+
+# help
+
+function usage()
+{
+    echo
+    echo "Usage:"
+    echo
+    echo "   install  all | clean | what | versions | builds | platforms"
+    echo
+    echo "Where you are not allowed to provide a blank command line"
+    echo
+    echo "   all = do everything"
+    echo "   clean = remove the given items"
+    echo "   what = zero or more of:  exe lib jni"
+    echo "   version = zero or more of:  0.9 0.11 2.7"
+    echo "   builds = zero or more of: _linux _win"
+    echo "   platforms = x86 arm arm7"
+    echo
+    echo "Note that 'jni' is not included in all and must be"
+    echo "explicitly specified"
+    echo
+    exit 1;
+}
+
+if [ $# -eq 0 ]
+then
+    usage
+fi
+
+
+# parse command line
+
+for PARAM in "$@"
+do
+
+    if [ "$PARAM" == "clean" ]; then
+
+        CLEAN=1
+        # add jni back in for clean all
+        ALL_WHATS="$ALL_WHATS jni"
+
+    elif [[ "$ALL_WHATS jni" =~ "$PARAM" ]]; then
+
+        test "$WHATS" != "" && WHATS="$WHATS "
+        WHATS="$WHATS$PARAM"
+
+    elif [[ "$ALL_VERSIONS" =~ "$PARAM" ]]; then
+
+        test "$VERSIONS" != "" && VERSIONS="$VERSIONS "
+        VERSIONS="$VERSIONS$PARAM"
+
+    elif [[ "$ALL_BUILDS" =~ "$PARAM" ]]; then
+
+        test "$BUILDS" != "" && BUILDS="$BUILDS "
+        BUILDS="$BUILDS$PARAM"
+
+    elif [[ "$ALL_PLATFORMS" =~ "$PARAM" ]]; then
+
+        test "$PLATFORMS" != "" && PLATFORMS="$PLATFORMS "
+        PLATFORMS="$PLATFORMS$PARAM"
+
+    elif [ "$PARAM" != "all" ]; then
+
+        echo
+        echo "ERROR: bad param '$PARAM'"
+        usage
+
+    fi
+done
+
+
+# fill out defaults
+
+test "$WHATS" == ""     && WHATS=$ALL_WHATS
+test "$VERSIONS" == ""  && VERSIONS=$ALL_VERSIONS
+test "$BUILDS" == ""    && BUILDS=$ALL_BUILDS
+test "$PLATFORMS" == "" && PLATFORMS=$ALL_PLATFORMS
+
+
+#----------------------------------------
+# methods
+#----------------------------------------
+
+function debug()
+{
+    test $1 -le $DEBUG_LEVEL && echo "$2"
+    return 0
+}
+
+
+function ADB_connect()
+{
+    # remove the "7" from arm7 platform
+
+    DEV_PLAT=${PLATFORM%7}
+    debug 3 "    DEV_PLAT=$DEV_PLAT"
+    eval DEVICE=\$DEVICE_$DEV_PLAT
+    debug 3 "    DEVICE=$DEVICE"
+    eval CONNECTED=\$CONNECTED_$DEV_PLAT
+    debug 3 "    CONNECTED=$CONNECTED"
+
+    if [ "$CONNECTED" != "" ]; then
+        debug 2 "    ADB already connected"
+    else
+        CONNECTED=$(adb connect $DEVICE)
+        debug 3 "    ADB connect=$CONNECTED"
+        if [[ $CONNECTED =~ "connected to $DEVICE" ]]; then
+
+            debug 1 "    ADB connected to $DEVICE"
+
+            if [ $REMOUNT_NEEDED ]; then
+                MOUNTED=$(adb -s $DEVICE:5555 remount)
+                debug 3 "    ADB mounted=$MOUNTED"
+                if [[ ! $MOUNTED =~ "remount succeeded" ]]; then
+                    echo "    ERROR: Could not ADB remount $DEVICE"
+                    exit 1
+                fi
+                debug 1 "    ADB remount succeeded"
+            fi
+            eval CONNECTED_$DEV_PLAT=1
+
+        else
+            echo "    ERROR: Could not ADB connect $DEVICE"
+            exit 1;
+        fi
+    fi
+}
+
+
+function do_one_install()
+{
+    debug 3 "do_one_install($WHAT,$VERSION,$BUILD,$PLATFORM) clean=$CLEAN"
+
+    #----------------------------
+    # basic setup
+    #----------------------------
+
+    USE_PLAT=$PLATFORM
+    SRC=fpcalc
+    DEST=fpcalc${BUILD}_${PLATFORM}.$VERSION
+
+    if [ "$WHAT" != "exe" ]; then
+        USE_PLAT="${PLATFORM}s"
+        SRC=libfpcalc.so
+        DEST=libfpcalc${BUILD}_${USE_PLAT}.$VERSION.so
+    fi
+
+    SRC="$SOURCE_DIR/$VERSION/$BUILD/$USE_PLAT/$SRC"
+    debug 3 "    SRC=$SRC"
+
+    if [ ! -f "$SRC" ]; then
+        echo "NOT FOUND: $SRC"
+        return
+    fi
+
+    if [ "$WHAT" == "jni" ]; then
+        if [ ! -d "$ANDROID_PROJECT" ]; then
+            echo "ERROR: ANDROID_PROJECT not found at '$ANDROID_PROJECT'"
+            exit 1;
+        fi
+
+        ANDROID_ARCH=$PLATFORM
+        test "$PLATFORM" == "arm" && ANDROID_ARCH="armeabi"
+        test "$PLATFORM" == "arm7" && ANDROID_ARCH="armeabi-v7a"
+        DEST_DIR="$ANDROID_PROJECT/jniLibs/$ANDROID_ARCH"
+    else
+        DEST_DIR=$CACHE_DIR
+    fi
+
+    mkdir -p "$DEST_DIR"
+    DESTF="$DEST_DIR/$DEST"
+    debug 3 "    DESTF=$DESTF"
+
+    #----------------------------
+    # check file date
+    #----------------------------
+
+    if [ $CLEAN -eq 0 -a ! "$SRC" -nt "$DESTF" ]; then
+        debug 0 "UP TO DATE: $WHAT $DEST"
+        return
+    fi
+
+    test $CLEAN -eq 0 && debug 0 "INSTALLING $WHAT $DEST"
+
+    #----------------------------
+    # if not JNI, do ADB stuff
+    #----------------------------
+
+    if [ "$WHAT" != "jni" ]; then
+
+        ADB_connect
+
+        ADB_DIR=$DEST_EXE_DIR
+        test "$WHAT" == "lib" && ADB_DIR=$DEST_LIB_DIR
+        ADB_DEST="$ADB_DIR/$DEST"
+
+        if [ $CLEAN -gt 0 ]; then
+
+            debug 2 "    ADB shell rm $ADB_DEST"
+            RESULT=$(adb -s $DEVICE:5555 shell rm "$ADB_DEST" 2>&1)
+            debug 3 "        adb rm result=$RESULT"
+            test "$RESULT" == "" && debug 0 "    REMOVED $WHAT $DEST"
+
+        else
+
+            debug 1 "    ADB push to $ADB_DEST"
+            PUSHED=$(adb -s $DEVICE:5555 push "$SRC" "$ADB_DEST" 2>&1)
+
+            if [[ ! "$PUSHED" =~ "[0-9]+ *KB\/s \([0-9]+ bytes in [0-9.]+s\)" ]]; then
+                echo "    ERROR: $PUSHED"
+                exit 1;
+            fi
+
+            debug 1 "    ADB shell chmod 755"
+            CH_RESULT=$(adb -s $DEVICE:5555 shell chmod 755 "$ADB_DEST" 2>&1)
+            if [ "$CH_RESULT" != "" ]; then
+                echo "    ERROR adb chmod: $CH_RESULT"
+                exit 1;
+            fi
+
+        fi
+
+    fi  # ADB stuff
+
+    #---------------------------------------------
+    # copy or clean the file
+    #---------------------------------------------
+
+    if [ $CLEAN -gt 0 ]; then
+
+        debug 2 "    rm $DESTF"
+        set +e
+        RM_RESULT=$(rm "$DESTF" 2>&1)
+        debug 3 "        rm result=$RM_RESULT"
+        test "$RM_RESULT" == "" && debug 0 "    DELETED $WHAT $DEST"
+        set -e
+
+    else
+
+        debug 2 "    cp $SRC"
+        debug 2 "    to $DESTF"
+
+        set +e
+        COPIED=$(cp -p -T "$SRC" "$DESTF" 2>&1)
+        set -e
+        debug 3 "        copied=$copied"
+        if [ "$COPIED" != "" ]; then
+            echo "    ERROR: $COPIED";
+            exit 1;
+        fi;
+
+        WHAT_COPY=CACHED
+        test "$WHAT" == "jni" && WHAT_COPY=COPIED
+        debug 1 "    $WHAT_COPY $DEST"
+
+    fi  # copy file
+
+}   # do_one_install()
+
+
+#----------------------------------------
+# main
+#----------------------------------------
+
+echo
+echo "install started ..."
+echo
+
+for WHAT in $WHATS
+do
+    for VERSION in $VERSIONS
+    do
+        for BUILD in $BUILDS
+        do
+            for PLATFORM in $PLATFORMS
+            do
+                do_one_install
+            done
+        done
+    done
+done
+
+echo
+echo "install finished"
+echo

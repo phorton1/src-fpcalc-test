@@ -1,0 +1,216 @@
+#!/bin/bash
+#----------------------------------------------------
+# install_ref
+#
+# A shell script to install the specific built versions
+# of fpcalc that will be available to the general public
+# in the phorton1/fpcalc-releases repository.
+#
+#---------------------------------------------------
+#
+# This file is (c) Copyright 2015 - Patrick Horton.
+#
+# It is released under the GNU Public License Version 2,
+# and you are free to modify it as you wish, as long as
+# this header, and the copyright it contains are included
+# intact in your modified version of the this file.
+#
+# Please see COPYING.GPLv2 for more information.
+
+set -e
+set +x
+
+DEBUG_LEVEL=0
+
+# Your configuration
+
+START_DIR=$(PWD)
+SOURCE_DIR="$START_DIR/../_install"
+DEST_DIR="$START_DIR/../releases"
+
+# program variables
+
+CLEAN=0
+REF_VERSION=0.9
+REF_BUILD=_linux
+ALL_PLATFORMS="win host x86 arm arm7 x86s arms arm7s"
+
+# help
+
+function usage()
+{
+    echo
+    echo "Usage:"
+    echo
+    echo "   install_ref  all | clean | platforms"
+    echo
+    echo "Where you are not allowed to provide a blank command line"
+    echo
+    echo "   all = do everything"
+    echo "   clean = remove the given items"
+    echo "   platforms = win host x86 arm arm7 x86s arms arm7s"
+    echo
+    exit 1;
+}
+
+if [ $# -eq 0 ]
+then
+    usage
+fi
+
+
+# parse command line
+
+for PARAM in "$@"
+do
+
+    if [ "$PARAM" == "clean" ]; then
+
+        CLEAN=1
+
+    elif [[ "$ALL_PLATFORMS" =~ "$PARAM" ]]; then
+
+        test "$PLATFORMS" != "" && PLATFORMS="$PLATFORMS "
+        PLATFORMS="$PLATFORMS$PARAM"
+
+    elif [ "$PARAM" != "all" ]; then
+
+        echo
+        echo "ERROR: bad param '$PARAM'"
+        usage
+
+    fi
+done
+
+# fill out defaults
+
+test "$PLATFORMS" == "" && PLATFORMS=$ALL_PLATFORMS
+
+
+#----------------------------------------
+# methods
+#----------------------------------------
+
+function debug()
+{
+    test $1 -le $DEBUG_LEVEL && echo "$2"
+    return 0
+}
+
+
+
+function do_one_install()
+{
+    debug 3 "do_one_install($PLATFORM) clean=$CLEAN"
+
+    #----------------------------
+    # basic setup
+    #----------------------------
+
+    ROOT=fpcalc
+    DEST_PLAT=$PLATFORM
+
+    test "$PLATFORM" == "win" && ROOT=fpcalc.exe
+    if [ "$PLATFORM" == "x86s" -o "$PLATFORM" == "arms" -o "$PLATFORM" == "arm7s" ]; then
+        ROOT=libfpcalc.so
+    fi
+
+    # map my platforms to official names
+
+    test "$PLATFORM" == "win" && DEST_PLAT=win32
+    test "$PLATFORM" == "host" && DEST_PLAT=linux-x86
+    test "$PLATFORM" == "x86" -o "$PLATFORM" == "x86s" && DEST_PLAT=android-x86
+    test "$PLATFORM" == "arm" -o "$PLATFORM" == "arms" && DEST_PLAT=android-armeabi
+    test "$PLATFORM" == "arm7" -o "$PLATFORM" == "arm7s" && DEST_PLAT=android-armeabi-v7a
+
+    DEST_D="$DEST_DIR/$DEST_PLAT"
+    DEST="$DEST_D/$ROOT"
+    DEST_GZ="$DEST_D/$ROOT.gz"
+
+    SRC_D="$SOURCE_DIR/$REF_VERSION/$REF_BUILD/$PLATFORM"
+    SRC="$SRC_D/$ROOT"
+
+    debug 3 "    SRC=$SRC"
+    debug 3 "    DEST=$DEST"
+
+    if [ ! -f "$SRC" ]; then
+        echo "NOT FOUND: $SRC"
+        return
+    fi
+
+    #----------------------------
+    # check file date
+    #----------------------------
+
+    if [ $CLEAN -eq 0 -a ! "$SRC" -nt "$DEST_GZ" ]; then
+        debug 0 "UP TO DATE: $DEST"
+        return
+    fi
+
+    test $CLEAN -eq 0 && debug 0 "INSTALLING $DEST"
+
+    #---------------------------------------------
+    # copy or clean the file
+    #---------------------------------------------
+
+    if [ $CLEAN -gt 0 ]; then
+
+        debug 2 "    rm $DEST_GZ"
+        set +e
+        RM_RESULT=$(rm "$DEST_GZ" 2>&1)
+        set -e
+        debug 3 "        rm result=$RM_RESULT"
+        test "$RM_RESULT" == "" && debug 0 "    DELETED $DEST_GZ"
+
+    else
+
+        debug 2 "    gzip $SRC"
+        debug 2 "    to $DEST_GZ"
+
+        mkdir -p "$DEST_D"
+
+        # copy the file first, then gzip it in place
+
+        set +e
+        COPIED=$(cp -p -T "$SRC" "$DEST" 2>&1)
+        set -e
+        debug 3 "        copied=$copied"
+        if [ "$COPIED" != "" ]; then
+            echo "    ERROR: $COPIED";
+            exit 1;
+        fi;
+
+        debug 1 "    COPIED $DEST"
+
+        set +e
+        ZIP_RESULT=$(gzip -f "$DEST" 2>&1)
+        set -e
+        debug 3 "        zip result=$ZIP_RESULT"
+        if [ "$ZIP_RESULT" != "" ]; then
+            echo "    ERROR: $ZIP_RESULT";
+            exit 1;
+        fi;
+
+        debug 0 "    INSTALLED $DEST_GZ"
+
+    fi  # copy file
+
+}   # do_one_install()
+
+
+#----------------------------------------
+# main
+#----------------------------------------
+
+echo
+echo "install_ref started ..."
+echo
+
+for PLATFORM in $PLATFORMS
+do
+    do_one_install
+done
+
+echo
+echo "install_ref finished"
+echo

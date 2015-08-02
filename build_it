@@ -1,0 +1,47 @@
+#!/bin/bash
+#----------------------------------------------------
+# build_it
+#
+# A shell script to multi-configure and multi-make
+# the given checked out version of ffmpeg and chromaprint
+# to automate the build process of "all"
+#
+#---------------------------------------------------
+#
+# This file is (c) Copyright 2015 - Patrick Horton.
+#
+# It is released under the GNU Public License Version 2,
+# and you are free to modify it as you wish, as long as
+# this header, and the copyright it contains are included
+# intact in your modified version of the this file.
+#
+# Please see COPYING.GPLv2 for more information.
+
+START_DIR=$PWD
+echo "BUILDING the current version $START_DIR ..."
+set -e
+
+
+function configure_and_make()
+{
+    cd $START_DIR/../$SUBDIR
+    set -x  # echo on
+    ./multi-configure all
+    if [ "$WINDIR" == "" ]
+    then
+        ./multi-configure host
+    fi
+
+    DO_INSTALL=install
+    test "$SUBDIR" == "ffmpeg" && DO_INSTALL=install
+    ./multi-make all $DO_INSTALL
+
+    set +x  # echo off
+    cd ..
+}
+
+
+for SUBDIR in ffmpeg chromaprint
+do
+    configure_and_make
+done

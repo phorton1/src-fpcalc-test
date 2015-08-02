@@ -123,12 +123,14 @@ sub show_results
         push @columns,$results{$id}->{text};
     }
 
+    my $md_text = "";
     my $html_text = "<table style='border:1px solid black; border-collapse:collapse; padding:4px; spacing:2px'>\n";
     for (my $i=0; $i<@left_column; $i++)
     {
         my $used = 0;
         my $show_text = "";
         my $html_line = "<tr>\n";
+        my $md_line = "";
         for (my $j=0; $j<@columns; $j++)
         {
             my $value = $columns[$j]->[$i] || "";
@@ -139,14 +141,33 @@ sub show_results
             $html_line .= ($value || "&nbsp;");
             $html_line .= "</b>" if ($j==0 || $i<4);
             $html_line .= "</td>\n";
+            $md_line .= "**" if ($value && $j==0 || $i<4);
+            $md_line .= "$value";
+            $md_line .= "**" if ($value && $j==0 || $i<4);
+            $md_line .= "|";
         }
+        $md_line .= "\n";
         $html_line .= "</tr>\n";
         $html_text .= $html_line if !$columns[0]->[$i] || $used;
+        $md_text .= $md_line if !$columns[0]->[$i] || $used;
+        if ($i == 0)
+        {
+            for (my $j=0; $j<@columns; $j++)
+            {
+                $md_text .= ":" if ($j == 0);
+                $md_text .= "---";
+                $md_text .= ":" if ($j > 0);
+                $md_text .= "|";
+            }
+            $md_text .= "\n";
+        }
+
         display($dbg_show,0,$show_text);
     }
     display($dbg_show,0,"");
     $html_text .= "</table>\n";
-    printVarToFile(1,$output_file,$html_text);
+    printVarToFile(1,"$output_file.html",$html_text);
+    printVarToFile(1,"$output_file.md",$md_text);
 }
 
 
@@ -163,10 +184,10 @@ display(0,0,"create_md_tables.pm started");
 display(0,0,"reading results.csv");
 if (read_results_csv())
 {
-    show_results("results.2.7.html","2.7",'');
-    show_results("results.0.11.html","0.11",'');
-    show_results("results.0.9.html","0.9",'');
-    show_results("orig.html","",'orig');
+    show_results("results.2.7","2.7",'');
+    show_results("results.0.11","0.11",'');
+    show_results("results.0.9","0.9",'');
+    show_results("orig","",'orig');
 }
 
 display(0,0,"create_md_tables.pm finished");

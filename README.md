@@ -5,7 +5,7 @@ phorton1/test
 
 This repository contains my own personal scripts, and perl and java code to install, run, and compare the results of the various versions of fpcalc built with the phorton1/chromaprint repository.
 
-It is beyond the scope of my efforts to document the contents of this repository. If you are curious how I use the particular scripts, perl, and java code to produce the results, and analyze them, please feel free to browse the source code and use it, and/or modify it as you wish.
+It is beyond the scope of my efforts to document the contents of this repository. If you are curious about (or regarding) how I use the particular scripts, perl, and java code to produce the results, and analyze them, please feel free to browse the source code and use it, and/or modify it as you wish.
 
 The essential reason I am publishing this repository is to bring to light the results of my analysis of the behavior of the **chromaprint fpCalc utility** accross different **platforms** and
 **versions of ffmpeg**.
@@ -22,7 +22,7 @@ This fact, and this analysis *may* be important to others, including the origina
 
 ## General Observations
 
-I personally *backed into* this project as initally all I was trying to do was build an **Android version of fpCalc** for use in my own application development.  When I did so, as a matter of *due diligence*, I endeavored to test the results of my build against the **Windows 32bit reference fpCalc** that I have been using for several years, which is available on the acoustid site
+I personally *backed into* this project as initially all I was trying to do was build an **Android version of fpCalc** for use in my own application development.  When I did so, as a matter of *due diligence*, I endeavored to test the results of my build against the **Windows 32bit reference fpCalc** that I have been using for several years, which is available on the acoustid site
 [here](https://bitbucket.org/acoustid/chromaprint/downloads/chromaprint-fpcalc-1.1-win-i686.zip),
 and which is distributed as part of the Windows release of the musicBrainz [picard](http://picard.musicbrainz.org/) application (henceforth named **orig_win** for brevity).
 
@@ -45,7 +45,7 @@ Generally speaking, the **text fingerprint** produced by fpCalc can be decompres
 
 *aside: I am interested in the actual comparison operation used by the acoustid website, for example, if the **magnitude** of the difference of the 2 bit comparisons is important, if acoustid does any kind of **shifting** or initial matching (i.e. what if there is a little bit of extra white noise at the beginning of one file or another), and very interested in the **semantics and expectations** for these "fingerprints", i.e. when should they be *similar*, and when are they expected to be *different* across platforms, ffmpeg versions, audio files that only differ in, for example, bitrate, and/or audio files that are actually different recordings of the same songs by the same artist at different times.  I look forward to a analytical discussion of these topics with the author of chromaprint.*
 
-*aside2: I believe that my comparison is sufficient to detect **significant** differences.  If the **magnitude** were important, it would merely **increase** the number of difference detected by my analysis.*
+*aside2: I believe that my comparison is sufficient to detect **significant** differences.  If the **magnitude** were important, it would merely **increase** the number of differences detected by my analysis.*
 
 In doing this analysis (over and over for the past 2 months), I also **added some fpCalc features** that help with the process, and may be useful for other things.  I added an **md5 hash of the text fingerprint** to allow for quicker exact matching, and a **stream_md5 hash** that identifies if the lower level ffmpeg stream being passed to chromaprint is the same, or different, on a given build. I also **beefed up the -version option** to display the particulars about the version and flags of the ffmpeg it is linked to, and *hope that the author will incorporate these changes into the main trunk of acoustid/chromaprint*. Personally, I will be using this new stream_md5 as a unique identifier for the audio stream in a cross platform manner, independent of, for example, the *tags* that the user can modify in those files.
 
@@ -114,9 +114,9 @@ Basically this table shows the comparison of various builds I have done of fpCal
 
 For those fingerprints that differed from the orig_win build, they were decoded, and compared bitwise as described above. What is interesting about the *f0-f4* section, is that although there were different distributions of "insignficant differences" where the score was *under* **0.01**, that the **number of significant differences** was the **same** across all platforms and builds, at **454 cases** or **5.29%** of my audio files.
 
-This **5.29%** difference is specific to my particular collection of audio files.  One could run this test suite against another collection and receive a *0%* difference.  But what is **scary** is that one could also run this suite against a particular collection and recieve **100%** signficant differences from the orig_win build.
+This **5.29%** difference is specific to my particular collection of audio files.  One could run this test suite against another collection and receive a *0%* difference.  But what is **scary** is that one could also run this suite against a particular collection and receive **100%** signficant differences from the orig_win build.
 
-Also a comment that **my notion of significant differences** is undoubtedly debatable, but looking at the distributions of "bad scores" in the "g0" section of the table, shows some with scores that themselves differed by 10% or more from the orig_win fingerprint.  Surely this is cause for some concern for a system that tries to match acoustid fingerprints to specific musicbrainz release information.  This is significant enough that it very likely could result in a **wrong release** getting a better score than the **correct release** for a given file, and could mess up naive users of *picard*, as well as *polluting* the acoustid fingerprint database.
+There is no rigourous definition of **significant differences**, but looking at the distributions of "bad scores" in the "g0" section of the table, shows some with scores that themselves differed by 10% or more from the orig_win fingerprint.  Surely this is cause for some concern for a system that tries to match acoustid fingerprints to specific musicbrainz release information.  This is significant enough that it very likely could result in a **wrong release** getting a better score than the **correct release** for a given file, and could mess up naive users of *picard*, as well as *polluting* the acoustid fingerprint database.
 
 
 ## B. ffmpeg version 0.11

@@ -26,11 +26,11 @@ DEBUG_LEVEL=0
 REMOUNT_NEEDED=1
 
 DEVICE_x86=192.168.56.101
-DEVICE_arm=192.168.100.103
+DEVICE_arm=192.168.0.103
 DEST_EXE_DIR=//data/local/tmp
 DEST_LIB_DIR=//data/local/tmp
 
-ANDROID_PROJECT="/src/AndroidStudio/test_fpCalc/app/src/main"
+ANDROID_PROJECT="/src/AndroidStudio/TestFpCalc/app/src/main"
 
 START_DIR=$(PWD)
 CACHE_DIR="$START_DIR/../_cache"

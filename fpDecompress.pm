@@ -18,7 +18,7 @@
 #
 # Please see COPYING.GPLv2 for more information.
 
-ukage bitStringReader;
+package bitStringReader;
 use strict;
 use warnings;
 
